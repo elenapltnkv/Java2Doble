@@ -22,13 +22,16 @@ public class YaPogoda {
                 "X-Yandex-API-Key: <a653e609-ef9b-4cb8-b198-a04108bceafb>";
                 MediaType JSON = MediaType.parse("JSON");
                 RequestBody requestBodyWeather = RequestBody.create(requestBody, JSON);
-                Request request = new Request.Builder()
+                Request request;
+                request = new Request.Builder()
                         .url("https://api.weather.yandex.ru/v2/forecast?")
-                        .post(requestBodyWeather)
+                        .get()
+                        .addHeader("X-Yandex-API-Key", "a653e609-ef9b-4cb8-b198-a04108bceafb")
                         .build();
 
                 Response response = okHttpClient.newCall(request).execute();
                 String body = Objects.requireNonNull(response.body()).string();
-                System.out.println(Objects.requireNonNull(response.body()).string());
+                System.out.println("Вот такая погода!");
+                System.out.println(response);
     }
 }
